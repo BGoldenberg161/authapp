@@ -4,6 +4,7 @@ const layouts = require('express-ejs-layouts');
 const app = express();
 const session = require('express-session')
 const SECRET_SESSION = process.env.SECRET_SESSION
+const passport = require('./config/ppConfig')
 
 app.set('view engine', 'ejs');
 
@@ -20,6 +21,9 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.get('/', (req, res) => {
   res.render('index');
