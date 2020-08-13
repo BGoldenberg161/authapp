@@ -8,9 +8,14 @@ passport.serializeUser((user, cb) => {
 })
 
 // deserializeUser takes the id and looks it up in db
-passport.deserializeUser((id, cb) => {
-    cb(null, id)
-    .catch(cb())
+passport.deserializeUser((user, cb) => {
+    cb(null, user.id)
+    .catch(cb)
+
+    db.user.findByPk(id)
+    .then(user => {
+        cb(null, user)
+    }).catch(cb)
 })
 
 passport.use(new localStrategy({
@@ -27,7 +32,7 @@ passport.use(new localStrategy({
             cb(null, user)
         }
     })
-    .catch(cb())
+    .catch(cb)
 }))
 
 module.exports = passport

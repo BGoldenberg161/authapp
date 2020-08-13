@@ -23,6 +23,7 @@ router.post('/signup', (req, res)=>{
   .then(([user, created]) => {
     if(created){
       console.log(`${user.name} was created`)
+      passport.authenticate('local')
       res.redirect('/')
     } else {
       console.log('Email already exists')
@@ -39,5 +40,11 @@ router.post('/login', passport.authenticate('local', {
   successRedirect: '/', 
   failureRedirect: '/auth/login'
 }))
+
+
+router.get('/logout', (req, res)=>{
+  req.logOut()
+  res.redirect('/')
+})
 
 module.exports = router;
