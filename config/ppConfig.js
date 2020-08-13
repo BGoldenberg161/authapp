@@ -8,9 +8,7 @@ passport.serializeUser((user, cb) => {
 })
 
 // deserializeUser takes the id and looks it up in db
-passport.deserializeUser((user, cb) => {
-    cb(null, user.id)
-    .catch(cb)
+passport.deserializeUser((id, cb) => {
 
     db.user.findByPk(id)
     .then(user => {
