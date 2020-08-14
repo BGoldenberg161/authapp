@@ -9,11 +9,12 @@ passport.serializeUser((user, cb) => {
 
 // deserializeUser takes the id and looks it up in db
 passport.deserializeUser((id, cb) => {
-
     db.user.findByPk(id)
     .then(user => {
         cb(null, user)
-    }).catch(cb)
+    }).catch(err => {
+        cb(err, null)
+    })
 })
 
 passport.use(new localStrategy({
